@@ -13,7 +13,6 @@ export default () => {
         if (response.ok) {
           const data = await response.json();
           setProjects(data);
-          console.log(data);
         }
       } catch (error) {
         console.error('Erreur:', error);
