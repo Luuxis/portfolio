@@ -1,18 +1,21 @@
 'use client';
 
 import ProjectCard from "@/components/ProjectCard";
+import Mail from "@/components/Mail";
 import { useEffect, useState } from "react";
 
 export default () => {
   const [projects, setProjects] = useState([]);
+  const [cv, setCv] = useState("");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/luuxis/portfolio-assets/refs/heads/master/projet-list.json');
+        const response = await fetch('https://raw.githubusercontent.com/luuxis/portfolio-assets/refs/heads/master/projet-list.json?t=' + new Date().getTime());
         if (response.ok) {
           const data = await response.json();
-          setProjects(data);
+          setProjects(data.projects || []);
+          setCv(data.cv);
         }
       } catch (error) {
         console.error('Erreur:', error);
@@ -68,6 +71,8 @@ export default () => {
               description={proj.description}
               tags={proj.tags}
               projectLink={proj.projectLink}
+              rncp={proj.rncp}
+              moreInfoLink={proj.moreInfoLink}
             />
           ))}
         </div>
@@ -134,7 +139,7 @@ export default () => {
       <section id="cv" className="mt-24 p-10 bg-gray-800 rounded-xl w-11/12 md:w-3/4 mx-auto text-center shadow-md">
         <h3 className="text-3xl text-teal-400 font-semibold">Télécharger mon CV</h3>
         <p className="text-gray-300 mt-4">Cliquez ci-dessous pour obtenir une version PDF de mon parcours professionnel.</p>
-        <a href="cv_andre_gallo.pdf" target="_blank" className="mt-6 inline-block px-6 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600 transition-all duration-200 shadow">
+        <a href={cv} target="_blank" className="mt-6 inline-block px-6 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600 transition-all duration-200 shadow">
           Voir mon CV
         </a>
       </section>
@@ -149,6 +154,8 @@ export default () => {
           <li><a href="mailto:andre.gallo@epitech.eu" className="hover:underline" target="_blank">Mail : @luuxis</a></li>
         </ul>
       </section>
+
+      <Mail />
     </>
   );
 }
