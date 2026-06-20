@@ -11,7 +11,7 @@ import { SidebarBlockTitle } from './ui'
 
 function ContactList() {
   return (
-    <ul class="space-y-1.5">
+    <ul class="space-y-1">
       {contactItems.map((item) => (
         <li class="flex items-center gap-2.5 cv-sidebar-text">
           <span class="w-[20px] h-[20px] rounded-md bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-[8px] flex-shrink-0">
@@ -39,14 +39,14 @@ function Skills() {
   return (
     <>
       {skillGroups.map((group) => (
-        <div class="mb-2">
+        <div class="sidebar-skill-group mb-1.5">
           <p class="cv-label text-white/55 flex items-center gap-1 mb-1">
             <i class={`fa-solid ${group.icon} text-indigo-400`}></i> {group.label}
           </p>
           <div class="flex flex-wrap gap-1">
             {group.tags.map((tag) => (
               <span
-                class={`${tag.accent ? 'tag-accent' : 'tag-muted'} text-[9px] font-medium px-1.5 py-0.5 rounded-full`}
+                class={`${tag.accent ? 'tag-accent' : 'tag-muted'} text-[8.5px] font-medium px-1.5 py-0.5 rounded-full`}
               >
                 {tag.name}
               </span>
@@ -65,15 +65,15 @@ export function Sidebar() {
         <div class="sb-orb1" aria-hidden="true"></div>
         <div class="sb-orb2" aria-hidden="true"></div>
 
-        <div class="flex flex-col items-center pt-4 pb-3 px-5 border-b border-white/[.07] relative z-10">
-          <div class="avatar-ring w-[96px] h-[96px] rounded-full flex-shrink-0">
+        <div class="flex flex-col items-center sidebar-profile pt-3 pb-2 px-5 border-b border-white/[.07] relative z-10">
+          <div class="avatar-ring sidebar-avatar w-[90px] h-[90px] rounded-full flex-shrink-0">
             <img
               src={avatarDataUrl}
               alt={person.fullName}
               class="w-full h-full rounded-full object-cover"
             />
           </div>
-          <h1 class="mt-3 text-[15px] font-bold text-white tracking-[-0.02em] text-center leading-snug">
+          <h1 class="mt-2 text-[14px] font-bold text-white tracking-[-0.02em] text-center leading-tight">
             {person.firstName}{' '}
             <span class="bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent">
               {person.lastName}
@@ -84,12 +84,12 @@ export function Sidebar() {
           </p>
         </div>
 
-        <div class="sidebar-block px-5 pt-3 pb-2 border-b border-white/[.07] relative z-10">
+        <div class="sidebar-block sidebar-section px-5 pt-2.5 pb-1.5 border-b border-white/[.07] relative z-10">
           <SidebarBlockTitle icon="fa-address-card" title="Contact" />
           <ContactList />
         </div>
 
-        <div class="px-5 pt-3 pb-2 border-b border-white/[.07] relative z-10">
+        <div class="sidebar-section px-5 pt-2.5 pb-1.5 border-b border-white/[.07] relative z-10">
           <SidebarBlockTitle
             icon="fa-code"
             title="Compétences Techniques"
@@ -98,7 +98,7 @@ export function Sidebar() {
           <Skills />
         </div>
 
-        <div class="px-5 pt-3 pb-2 border-b border-white/[.07] relative z-10">
+        <div class="sidebar-section px-5 pt-2.5 pb-1.5 border-b border-white/[.07] relative z-10">
           <SidebarBlockTitle icon="fa-bolt" title="Atouts" />
           <ul class="space-y-1">
             {strengths.map((strength) => (
@@ -110,9 +110,9 @@ export function Sidebar() {
           </ul>
         </div>
 
-        <div class="px-5 pt-3 pb-2 border-b border-white/[.07] relative z-10">
+        <div class="sidebar-section px-5 pt-2.5 pb-1.5 border-b border-white/[.07] relative z-10">
           <SidebarBlockTitle icon="fa-language" title="Langues" />
-          <div class="space-y-2">
+          <div class="space-y-1.5">
             {languages.map((lang) => (
               <div>
                 <div class="flex justify-between text-[10px] mb-1">
@@ -127,9 +127,9 @@ export function Sidebar() {
           </div>
         </div>
 
-        <div class="px-5 pt-3 pb-3 relative z-10">
+        <div class="sidebar-section px-5 pt-2.5 pb-2 relative z-10">
           <SidebarBlockTitle icon="fa-heart" title="Intérêts" />
-          <div class="grid grid-cols-2 gap-1.5">
+          <div class="grid grid-cols-2 gap-1">
             {interests.map((interest) => (
               <div class="flex items-center gap-2 text-[10px] text-slate-400 tracking-[-0.005em]">
                 <span class="w-[22px] h-[22px] rounded-md bg-white/[.06] border border-white/[.08] flex items-center justify-center text-indigo-300 text-[9px] flex-shrink-0">
