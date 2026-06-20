@@ -5,5 +5,6 @@ import type { CloudflareBindings } from '../types/bindings'
 
 export function registerRoutes(app: Hono<{ Bindings: CloudflareBindings }>) {
   app.route('/', homeRoutes)
-  app.get('/cv.pdf', CvController.pdf)
+  app.get('/cv.pdf/file', CvController.file)
+  app.get('/cv.pdf', CvController.loader)
 }

@@ -7,7 +7,7 @@ const tailwindConfig = `
 tailwind.config = {
   theme: {
     extend: {
-      fontFamily: { sans: ['Inter', 'sans-serif'] },
+      fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
       colors: {
         indigo: {
           50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe',
@@ -39,9 +39,11 @@ export function CvPage() {
         />
         <meta name="author" content={person.fullName} />
         <script type="application/ld+json">{JSON.stringify(schemaLdJson)}</script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
         <script src="https://cdn.tailwindcss.com"></script>
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
         <link

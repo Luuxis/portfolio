@@ -1,6 +1,6 @@
 import type { Child } from 'hono/jsx'
 
-const strongClass = 'text-slate-700 font-semibold'
+const strongClass = 'text-slate-700 font-medium'
 const profileStrongClass = 'text-slate-800 font-semibold'
 
 export function RichText({
@@ -51,10 +51,10 @@ export function SectionHead({
 }) {
   return (
     <div class="cv-section-head">
-      <span class="section-icon-bg w-[22px] h-[22px] rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+      <span class="section-icon-bg w-[22px] h-[22px] rounded-md flex items-center justify-center text-[9px] font-semibold flex-shrink-0">
         <i class={`fa-solid ${icon} text-[9px]`}></i>
       </span>
-      <h2 class="text-[10.5px] font-extrabold text-slate-800 uppercase tracking-[1.5px]">
+      <h2 class="cv-section-title">
         {title}
         {srOnly ? <span class="sr-only">{srOnly}</span> : null}
       </h2>
@@ -64,7 +64,7 @@ export function SectionHead({
 
 export function SidebarBlockTitle({ icon, title, srOnly }: { icon: string; title: string; srOnly?: string }) {
   return (
-    <div class="flex items-center gap-1.5 text-[8px] font-bold text-indigo-400 uppercase tracking-[1.8px] mb-2">
+    <div class="flex items-center gap-1.5 cv-label mb-2">
       <i class={`fa-solid ${icon} text-[8px]`}></i> {title}
       {srOnly ? <span class="sr-only">{srOnly}</span> : null}
     </div>

@@ -1,5 +1,22 @@
 export const cvStyles = `
-body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        :root {
+            --cv-font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+            --cv-text: #334155;
+            --cv-text-strong: #1e293b;
+            --cv-text-muted: #64748b;
+            --cv-label: #6366f1;
+        }
+        body {
+            font-family: var(--cv-font);
+            font-size: 10.5px;
+            line-height: 1.55;
+            letter-spacing: -0.011em;
+            color: var(--cv-text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+        }
         * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         @page { size: A4; margin: 0; }
         @media print {
@@ -92,19 +109,20 @@ body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
             box-shadow: 0 2px 14px rgba(99,102,241,.14);
         }
         .cv-date {
-            font-size: 8.5px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 600;
             color: #4338ca;
             background: #eef2ff;
             border: 1px solid #c7d2fe;
-            padding: 1px 8px;
+            padding: 2px 8px;
             border-radius: 9999px;
             white-space: nowrap;
             flex-shrink: 0;
+            letter-spacing: 0.01em;
         }
         .cv-badge {
-            font-size: 7px;
-            font-weight: 700;
+            font-size: 8px;
+            font-weight: 600;
             color: #4338ca;
             background: #e0e7ff;
             border-bottom: 1px solid #c7d2fe;
@@ -112,8 +130,26 @@ body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
             padding: 2px 8px;
             border-bottom-left-radius: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.06em;
         }
+        .cv-label {
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--cv-label);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .cv-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--cv-text-strong);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .cv-body { font-size: 10.5px; line-height: 1.6; color: var(--cv-text); }
+        .cv-title { font-size: 11px; font-weight: 600; color: var(--cv-text-strong); letter-spacing: -0.01em; }
+        .cv-subtitle { font-size: 10px; font-weight: 500; color: #4f46e5; letter-spacing: -0.005em; }
+        .cv-sidebar-text { font-size: 10px; line-height: 1.5; color: #cbd5e1; letter-spacing: -0.005em; }
         .cv-main {
             flex: 1;
             min-width: 0;
@@ -129,7 +165,7 @@ body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .cv-section-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.375rem; }
         .cv-card-pad { padding: 0.8125rem; }
         .cv-bullets { display: flex; flex-direction: column; gap: 0.3125rem; }
-        .cv-bullets .bullet-item { font-size: 10px; line-height: 1.4; }
+        .cv-bullets .bullet-item { font-size: 10.5px; line-height: 1.55; letter-spacing: -0.008em; }
         .cv-cards-stack { display: flex; flex-direction: column; gap: 0.5rem; }
         .cv-exp-block { flex: 1; min-height: 0; display: flex; flex-direction: column; padding-left: 1.5rem; padding-right: 1.5rem; }
         .cv-timeline { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 0.5rem; }

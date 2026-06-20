@@ -4,10 +4,10 @@ import { BulletList, CvCard, RichText, SectionHead, TimelineDot } from './ui'
 function Header() {
   return (
     <div class="cv-section pt-1 pb-2 border-b-2 border-indigo-100 relative z-10">
-      <h1 class="text-[31px] font-black tracking-tight uppercase text-slate-900 leading-none">
+      <h1 class="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-[1.05]">
         {person.firstName} <span class="name-accent">{person.lastName}</span>
       </h1>
-      <p class="text-[9.5px] font-semibold text-slate-500 tracking-[1.5px] uppercase mt-1.5 sub-line">
+      <p class="cv-subtitle tracking-[0.06em] uppercase mt-1.5 sub-line">
         {person.headline}
       </p>
     </div>
@@ -20,7 +20,7 @@ function Profile() {
       <SectionHead icon="fa-user" title="Profil" srOnly="Summary Profile" />
       <CvCard>
         <div class="intro-bar absolute left-0 top-0 bottom-0 w-1 rounded-l-xl"></div>
-        <p class="text-[10px] text-slate-600 leading-[1.55] text-justify pl-1">
+        <p class="cv-body pl-1">
           <RichText text={profileText} strongClassName="text-slate-800 font-semibold" />
         </p>
       </CvCard>
@@ -52,11 +52,11 @@ function Experiences() {
               {exp.badge ? <div class="cv-badge absolute top-0 right-0">{exp.badge}</div> : null}
               <div class={`flex justify-between items-start mb-1.5 ${exp.badge ? 'pr-14' : ''}`}>
                 <div>
-                  <h3 class="text-[11px] font-bold text-slate-800" itemprop="jobTitle">
+                  <h3 class="cv-title" itemprop="jobTitle">
                     {exp.role}
                     {exp.roleSrOnly ? <span class="sr-only">{exp.roleSrOnly}</span> : null}
                   </h3>
-                  <div class="text-[10px] font-semibold text-indigo-600 mt-0.5 flex items-center gap-1">
+                  <div class="cv-subtitle mt-0.5 flex items-center gap-1">
                     <i
                       class={`fa-solid ${exp.role === 'Développeur Freelance' ? 'fa-user-tie' : 'fa-building'} text-[9px]`}
                     ></i>{' '}
@@ -93,12 +93,12 @@ function OpenSource() {
       <div class="cv-cards-stack">
         <CvCard>
           <div class="flex justify-between items-center mb-1.5">
-            <div class="flex items-center gap-2 text-[11px] font-bold text-slate-800">
+            <div class="flex items-center gap-2 cv-title">
               <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[13px]`}></i>
               {featured.title}
             </div>
             {featured.badge ? (
-              <span class="oss-fork-badge text-[8.5px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span class="oss-fork-badge text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
                 <i class={`fa-solid ${featured.badge.icon}`}></i> {featured.badge.text}
               </span>
             ) : null}
@@ -109,7 +109,7 @@ function OpenSource() {
         <div class="cv-oss-grid grid grid-cols-2 gap-2">
           {grid.map((project) => (
             <CvCard>
-              <div class="flex items-center gap-2 mb-1.5 text-[11px] font-bold text-slate-800">
+              <div class="flex items-center gap-2 mb-1.5 cv-title">
                 <i
                   class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[13px]`}
                 ></i>
@@ -132,10 +132,10 @@ function EducationSection() {
         {education.map((item) => (
           <CvCard>
             <div class="flex justify-between gap-1.5">
-              <div class="text-[11px] font-bold text-slate-800">{item.title}</div>
-              <span class="cv-date text-[8px] px-1.5">{item.badge}</span>
+              <div class="cv-title">{item.title}</div>
+              <span class="cv-date text-[8.5px] px-1.5">{item.badge}</span>
             </div>
-            <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+            <div class="flex justify-between cv-body text-slate-500 mt-1">
               <span>{item.school}</span>
               <span class="font-semibold text-slate-600">{item.period}</span>
             </div>
