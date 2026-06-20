@@ -9,6 +9,10 @@ import { cvDisplayUrl, renderCv } from '../views/cv/template'
 
 type AppContext = Context<{ Bindings: CloudflareBindings }>
 
+export function index(c: AppContext) {
+  return c.html(renderCv())
+}
+
 async function generateCvPdf(c: AppContext) {
   const origin = new URL(c.req.url).origin
 
