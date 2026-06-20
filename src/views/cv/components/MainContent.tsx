@@ -3,8 +3,8 @@ import { BulletList, CvCard, RichText, SectionHead, TimelineDot } from './ui'
 
 function Header() {
   return (
-    <div class="cv-section pt-1 pb-2 border-b-2 border-indigo-100 relative z-10">
-      <h1 class="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-[1.05]">
+    <div class="cv-section cv-header pt-0.5 pb-1.5 border-b-2 border-indigo-100 relative z-10">
+      <h1 class="text-[27px] font-bold tracking-[-0.03em] text-slate-900 leading-none">
         {person.firstName} <span class="name-accent">{person.lastName}</span>
       </h1>
       <p class="cv-subtitle tracking-[0.06em] uppercase mt-1.5 sub-line">
@@ -50,7 +50,7 @@ function Experiences() {
             <TimelineDot variant={exp.dot} />
             <CvCard featured={exp.dot === 'active'}>
               {exp.badge ? <div class="cv-badge absolute top-0 right-0">{exp.badge}</div> : null}
-              <div class={`flex justify-between items-start mb-1.5 ${exp.badge ? 'pr-14' : ''}`}>
+              <div class={`flex justify-between items-start mb-1 ${exp.badge ? 'pr-14' : ''}`}>
                 <div>
                   <h3 class="cv-title" itemprop="jobTitle">
                     {exp.role}
@@ -92,7 +92,7 @@ function OpenSource() {
       <SectionHead icon="fa-code-branch" title="Impact Open Source" />
       <div class="cv-cards-stack">
         <CvCard>
-          <div class="flex justify-between items-center mb-1.5">
+          <div class="flex justify-between items-center mb-1">
             <div class="flex items-center gap-2 cv-title">
               <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[13px]`}></i>
               {featured.title}
@@ -106,10 +106,10 @@ function OpenSource() {
           <BulletList items={featured.bullets} />
         </CvCard>
 
-        <div class="cv-oss-grid grid grid-cols-2 gap-2">
+        <div class="cv-oss-grid grid grid-cols-2 gap-1.5">
           {grid.map((project) => (
             <CvCard>
-              <div class="flex items-center gap-2 mb-1.5 cv-title">
+              <div class="flex items-center gap-2 mb-1 cv-title">
                 <i
                   class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[13px]`}
                 ></i>
