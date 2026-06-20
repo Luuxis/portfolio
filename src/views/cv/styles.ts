@@ -10,8 +10,8 @@ export const cvStyles = `
 
 body {
     font-family: var(--cv-font);
-    font-size: 10px;
-    line-height: 1.42;
+    font-size: 11px;
+    line-height: 1.44;
     letter-spacing: -0.01em;
     color: var(--cv-text);
     -webkit-font-smoothing: antialiased;
@@ -155,48 +155,54 @@ body {
     }
 
     body {
-        font-size: 9.75px;
-        line-height: 1.38;
-    }
-
-    .cv-body {
-        font-size: 9.75px;
+        font-size: 10.5px;
         line-height: 1.4;
     }
 
+    .cv-body {
+        font-size: 10.5px;
+        line-height: 1.42;
+    }
+
     .cv-title {
-        font-size: 10px;
+        font-size: 11px;
+        font-weight: 700;
     }
 
     .cv-subtitle {
-        font-size: 9.5px;
+        font-size: 10px;
+        font-weight: 600;
     }
 
     .cv-bullets .bullet-item {
-        font-size: 9.75px;
-        line-height: 1.38;
+        font-size: 10.5px;
+        line-height: 1.4;
     }
 
     .cv-section-title {
-        font-size: 9.5px;
+        font-size: 10px;
+        font-weight: 800;
     }
 
     .cv-label {
-        font-size: 8.5px;
+        font-size: 9px;
+        font-weight: 700;
     }
 
     .cv-sidebar-text {
-        font-size: 9.5px;
-        line-height: 1.38;
+        font-size: 10px;
+        line-height: 1.4;
     }
 
     .cv-date {
-        font-size: 8.5px;
+        font-size: 9px;
+        font-weight: 700;
         padding: 1px 7px;
     }
 
     .cv-badge {
-        font-size: 7.5px;
+        font-size: 8px;
+        font-weight: 700;
     }
 
     .cv-main {
@@ -232,7 +238,7 @@ body {
     }
 
     .cv-header h1 {
-        font-size: 26px !important;
+        font-size: 27px !important;
         line-height: 1 !important;
     }
 
@@ -251,7 +257,7 @@ body {
     }
 
     .sidebar-profile h1 {
-        font-size: 13.5px !important;
+        font-size: 14.5px !important;
         margin-top: 0.4rem !important;
     }
 
@@ -293,6 +299,7 @@ body {
     background: rgba(99, 102, 241, .15);
     color: #a5b4fc;
     border: 1px solid rgba(99, 102, 241, .3);
+    font-weight: 600;
 }
 
 .tag-muted {
@@ -356,7 +363,7 @@ body {
 .bullet-item::before {
     content: '▸';
     color: #818cf8;
-    font-size: 8px;
+    font-size: 9px;
     position: absolute;
     left: 0;
     top: 2px;
@@ -412,8 +419,8 @@ body {
 }
 
 .cv-date {
-    font-size: 8.5px;
-    font-weight: 600;
+    font-size: 9.5px;
+    font-weight: 700;
     color: #4338ca;
     background: #eef2ff;
     border: 1px solid #c7d2fe;
@@ -425,8 +432,8 @@ body {
 }
 
 .cv-badge {
-    font-size: 7.5px;
-    font-weight: 600;
+    font-size: 8.5px;
+    font-weight: 700;
     color: #4338ca;
     background: #e0e7ff;
     border-bottom: 1px solid #c7d2fe;
@@ -438,44 +445,44 @@ body {
 }
 
 .cv-label {
-    font-size: 8.5px;
-    font-weight: 600;
+    font-size: 9.5px;
+    font-weight: 700;
     color: var(--cv-label);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
 .cv-section-title {
-    font-size: 9.5px;
-    font-weight: 700;
+    font-size: 10.5px;
+    font-weight: 800;
     color: var(--cv-text-strong);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
 .cv-body {
-    font-size: 10px;
-    line-height: 1.45;
+    font-size: 11px;
+    line-height: 1.46;
     color: var(--cv-text);
 }
 
 .cv-title {
-    font-size: 10.5px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     color: var(--cv-text-strong);
     letter-spacing: -0.01em;
 }
 
 .cv-subtitle {
-    font-size: 9.5px;
-    font-weight: 500;
+    font-size: 10.5px;
+    font-weight: 600;
     color: #4f46e5;
     letter-spacing: -0.005em;
 }
 
 .cv-sidebar-text {
-    font-size: 9.5px;
-    line-height: 1.42;
+    font-size: 10.5px;
+    line-height: 1.44;
     color: #cbd5e1;
     letter-spacing: -0.005em;
 }
@@ -496,7 +503,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    margin: 0.5rem 0 0.2rem;
+    margin: 0.3rem 0 0.2rem;
     flex-shrink: 0;
 }
 
@@ -516,9 +523,19 @@ body {
 }
 
 .cv-bullets .bullet-item {
-    font-size: 10px;
-    line-height: 1.42;
+    font-size: 11px;
+    line-height: 1.44;
     letter-spacing: -0.008em;
+}
+
+.cv-bullets strong {
+    font-weight: 600;
+    color: var(--cv-text-strong);
+}
+
+.cv-body strong {
+    font-weight: 700;
+    color: var(--cv-text-strong);
 }
 
 .cv-cards-stack,

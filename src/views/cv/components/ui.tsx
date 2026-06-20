@@ -1,7 +1,7 @@
 import type { Child } from 'hono/jsx'
 
-const strongClass = 'text-slate-700 font-medium'
-const profileStrongClass = 'text-slate-800 font-semibold'
+const strongClass = 'text-slate-800 font-semibold'
+const profileStrongClass = 'text-slate-900 font-bold'
 
 export function RichText({
   text,
@@ -51,8 +51,8 @@ export function SectionHead({
 }) {
   return (
     <div class="cv-section-head">
-      <span class="section-icon-bg w-[22px] h-[22px] rounded-md flex items-center justify-center text-[9px] font-semibold flex-shrink-0">
-        <i class={`fa-solid ${icon} text-[9px]`}></i>
+      <span class="section-icon-bg w-[22px] h-[22px] rounded-md flex items-center justify-center text-[10px] font-semibold flex-shrink-0">
+        <i class={`fa-solid ${icon} text-[10px]`}></i>
       </span>
       <h2 class="cv-section-title">
         {title}

@@ -13,7 +13,7 @@ function ContactList() {
   return (
     <ul class="space-y-1">
       {contactItems.map((item) => (
-        <li class="flex items-center gap-2.5 cv-sidebar-text">
+        <li class="flex items-center gap-2.5 cv-sidebar-text font-medium">
           <span class="w-[20px] h-[20px] rounded-md bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-[8px] flex-shrink-0">
             <i class={`${item.iconBrand ? 'fa-brands' : 'fa-solid'} ${item.icon}`}></i>
           </span>
@@ -23,7 +23,7 @@ function ContactList() {
               <span itemprop="addressCountry">{person.location.country}</span>
             </span>
           ) : item.href ? (
-            <a href={item.href} class="text-inherit no-underline" itemprop={item.itemProp}>
+            <a href={item.href} class="text-inherit no-underline font-semibold" itemprop={item.itemProp}>
               {item.content}
             </a>
           ) : (
@@ -46,7 +46,7 @@ function Skills() {
           <div class="flex flex-wrap gap-1">
             {group.tags.map((tag) => (
               <span
-                class={`${tag.accent ? 'tag-accent' : 'tag-muted'} text-[8.5px] font-medium px-1.5 py-0.5 rounded-full`}
+                class={`${tag.accent ? 'tag-accent' : 'tag-muted'} text-[9.5px] font-semibold px-1.5 py-0.5 rounded-full`}
               >
                 {tag.name}
               </span>
@@ -73,7 +73,7 @@ export function Sidebar() {
               class="w-full h-full rounded-full object-cover"
             />
           </div>
-          <h1 class="mt-2 text-[14px] font-bold text-white tracking-[-0.02em] text-center leading-tight">
+          <h1 class="mt-2 text-[15px] font-bold text-white tracking-[-0.02em] text-center leading-tight">
             {person.firstName}{' '}
             <span class="bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent">
               {person.lastName}
@@ -102,7 +102,7 @@ export function Sidebar() {
           <SidebarBlockTitle icon="fa-bolt" title="Atouts" />
           <ul class="space-y-1">
             {strengths.map((strength) => (
-              <li class="flex items-center gap-2 cv-sidebar-text">
+              <li class="flex items-center gap-2 cv-sidebar-text font-medium">
                 <span class="w-[5px] h-[5px] rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex-shrink-0"></span>
                 {strength}
               </li>
@@ -115,9 +115,9 @@ export function Sidebar() {
           <div class="space-y-1.5">
             {languages.map((lang) => (
               <div>
-                <div class="flex justify-between text-[10px] mb-1">
-                  <span class="text-white font-medium tracking-[-0.01em]">{lang.name}</span>
-                  <span class="text-indigo-300 text-[9px]">{lang.level}</span>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-white font-semibold tracking-[-0.01em]">{lang.name}</span>
+                  <span class="text-indigo-300 text-[10px] font-medium">{lang.level}</span>
                 </div>
                 <div class="h-[3px] bg-white/10 rounded-full overflow-hidden">
                   <div class="lang-bar h-full rounded-full" style={{ width: lang.width }}></div>
@@ -131,7 +131,7 @@ export function Sidebar() {
           <SidebarBlockTitle icon="fa-heart" title="Intérêts" />
           <div class="grid grid-cols-2 gap-1">
             {interests.map((interest) => (
-              <div class="flex items-center gap-2 text-[10px] text-slate-400 tracking-[-0.005em]">
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 tracking-[-0.005em] font-medium">
                 <span class="w-[22px] h-[22px] rounded-md bg-white/[.06] border border-white/[.08] flex items-center justify-center text-indigo-300 text-[9px] flex-shrink-0">
                   <i class={`fa-solid ${interest.icon}`}></i>
                 </span>

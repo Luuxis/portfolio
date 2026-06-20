@@ -4,7 +4,7 @@ import { BulletList, CvCard, RichText, SectionHead, TimelineDot } from './ui'
 function Header() {
   return (
     <div class="cv-header pt-0.5 border-b-2 border-indigo-100 relative z-10">
-      <h1 class="text-[27px] font-bold tracking-[-0.03em] text-slate-900 leading-none">
+      <h1 class="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-none">
         {person.firstName} <span class="name-accent">{person.lastName}</span>
       </h1>
       <p class="cv-subtitle tracking-[0.06em] uppercase mt-1.5 sub-line">
@@ -21,7 +21,7 @@ function ProfileSection() {
       <CvCard>
         <div class="intro-bar absolute left-0 top-0 bottom-0 w-1 rounded-l-xl"></div>
         <p class="cv-body pl-1">
-          <RichText text={profileText} strongClassName="text-slate-800 font-semibold" />
+          <RichText text={profileText} strongClassName="text-slate-900 font-bold" />
         </p>
       </CvCard>
     </>
@@ -58,7 +58,7 @@ function ExperiencesSection() {
                   </h3>
                   <div class="cv-subtitle mt-0.5 flex items-center gap-1">
                     <i
-                      class={`fa-solid ${exp.role === 'Développeur Freelance' ? 'fa-user-tie' : 'fa-building'} text-[9px]`}
+                      class={`fa-solid ${exp.role === 'Développeur Freelance' ? 'fa-user-tie' : 'fa-building'} text-[10px]`}
                     ></i>{' '}
                     {exp.company}
                   </div>
@@ -93,11 +93,11 @@ function OpenSourceSection() {
       <CvCard>
         <div class="flex justify-between items-center mb-1">
           <div class="flex items-center gap-2 cv-title">
-            <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[13px]`}></i>
+            <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[14px]`}></i>
             {featured.title}
           </div>
           {featured.badge ? (
-            <span class="oss-fork-badge text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+            <span class="oss-fork-badge text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
               <i class={`fa-solid ${featured.badge.icon}`}></i> {featured.badge.text}
             </span>
           ) : null}
@@ -109,7 +109,7 @@ function OpenSourceSection() {
           <CvCard>
             <div class="flex items-center gap-2 mb-1 cv-title">
               <i
-                class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[13px]`}
+                class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[14px]`}
               ></i>
               {project.title}
             </div>
@@ -130,11 +130,11 @@ function EducationSection() {
           <CvCard>
             <div class="flex justify-between gap-1.5">
               <div class="cv-title">{item.title}</div>
-              <span class="cv-date text-[8.5px] px-1.5">{item.badge}</span>
+              <span class="cv-date px-1.5">{item.badge}</span>
             </div>
-            <div class="flex justify-between cv-body text-slate-500 mt-1">
-              <span>{item.school}</span>
-              <span class="font-semibold text-slate-600">{item.period}</span>
+            <div class="flex justify-between cv-body mt-1">
+              <span class="font-medium text-slate-600">{item.school}</span>
+              <span class="font-bold text-slate-700">{item.period}</span>
             </div>
           </CvCard>
         ))}
