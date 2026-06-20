@@ -3,7 +3,7 @@ import { BulletList, CvCard, RichText, SectionHead, TimelineDot } from './ui'
 
 function Header() {
   return (
-    <div class="cv-section cv-header pt-0.5 pb-1.5 border-b-2 border-indigo-100 relative z-10">
+    <div class="cv-header pt-0.5 border-b-2 border-indigo-100 relative z-10">
       <h1 class="text-[27px] font-bold tracking-[-0.03em] text-slate-900 leading-none">
         {person.firstName} <span class="name-accent">{person.lastName}</span>
       </h1>
@@ -14,9 +14,9 @@ function Header() {
   )
 }
 
-function Profile() {
+function ProfileSection() {
   return (
-    <div class="cv-section relative z-10 flex-shrink-0">
+    <>
       <SectionHead icon="fa-user" title="Profil" srOnly="Summary Profile" />
       <CvCard>
         <div class="intro-bar absolute left-0 top-0 bottom-0 w-1 rounded-l-xl"></div>
@@ -24,13 +24,13 @@ function Profile() {
           <RichText text={profileText} strongClassName="text-slate-800 font-semibold" />
         </p>
       </CvCard>
-    </div>
+    </>
   )
 }
 
-function Experiences() {
+function ExperiencesSection() {
   return (
-    <div class="cv-exp-block relative z-10 flex flex-col min-h-0">
+    <>
       <SectionHead
         icon="fa-briefcase"
         title="Expériences Professionnelles"
@@ -80,55 +80,52 @@ function Experiences() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   )
 }
 
-function OpenSource() {
+function OpenSourceSection() {
   const [featured, ...grid] = ossProjects
 
   return (
-    <div class="cv-section relative z-10">
+    <>
       <SectionHead icon="fa-code-branch" title="Impact Open Source" />
-      <div class="cv-cards-stack">
-        <CvCard>
-          <div class="flex justify-between items-center mb-1">
-            <div class="flex items-center gap-2 cv-title">
-              <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[13px]`}></i>
-              {featured.title}
-            </div>
-            {featured.badge ? (
-              <span class="oss-fork-badge text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
-                <i class={`fa-solid ${featured.badge.icon}`}></i> {featured.badge.text}
-              </span>
-            ) : null}
+      <CvCard>
+        <div class="flex justify-between items-center mb-1">
+          <div class="flex items-center gap-2 cv-title">
+            <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[13px]`}></i>
+            {featured.title}
           </div>
-          <BulletList items={featured.bullets} />
-        </CvCard>
-
-        <div class="cv-oss-grid grid grid-cols-2 gap-1.5">
-          {grid.map((project) => (
-            <CvCard>
-              <div class="flex items-center gap-2 mb-1 cv-title">
-                <i
-                  class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[13px]`}
-                ></i>
-                {project.title}
-              </div>
-              <BulletList items={project.bullets} />
-            </CvCard>
-          ))}
+          {featured.badge ? (
+            <span class="oss-fork-badge text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <i class={`fa-solid ${featured.badge.icon}`}></i> {featured.badge.text}
+            </span>
+          ) : null}
         </div>
+        <BulletList items={featured.bullets} />
+      </CvCard>
+      <div class="cv-oss-grid">
+        {grid.map((project) => (
+          <CvCard>
+            <div class="flex items-center gap-2 mb-1 cv-title">
+              <i
+                class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[13px]`}
+              ></i>
+              {project.title}
+            </div>
+            <BulletList items={project.bullets} />
+          </CvCard>
+        ))}
       </div>
-    </div>
+    </>
   )
 }
 
 function EducationSection() {
   return (
-    <div class="cv-section pb-1 relative z-10">
+    <>
       <SectionHead icon="fa-graduation-cap" title="Formation" srOnly="Education Training" />
-      <div class="grid grid-cols-2 gap-2">
+      <div class="cv-cards-grid">
         {education.map((item) => (
           <CvCard>
             <div class="flex justify-between gap-1.5">
@@ -142,7 +139,7 @@ function EducationSection() {
           </CvCard>
         ))}
       </div>
-    </div>
+    </>
   )
 }
 
@@ -156,9 +153,9 @@ export function MainContent() {
         <i class="fa-solid fa-code"></i>
       </div>
       <Header />
-      <Profile />
-      <Experiences />
-      <OpenSource />
+      <ProfileSection />
+      <ExperiencesSection />
+      <OpenSourceSection />
       <EducationSection />
     </section>
   )

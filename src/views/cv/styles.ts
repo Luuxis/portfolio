@@ -5,6 +5,7 @@ export const cvStyles = `
     --cv-text-strong: #1e293b;
     --cv-text-muted: #64748b;
     --cv-label: #6366f1;
+    --cv-card-gap: 0.375rem;
 }
 
 body {
@@ -199,12 +200,12 @@ body {
     }
 
     .cv-main {
-        gap: 0.2rem;
+        gap: var(--cv-card-gap);
         padding: 0.3rem 0;
     }
 
     .cv-section-head {
-        margin-bottom: 0.2rem;
+        margin: 0;
     }
 
     .cv-card-pad {
@@ -215,12 +216,15 @@ body {
         gap: 0.2rem;
     }
 
-    .cv-cards-stack {
-        gap: 0.3rem;
+    :root {
+        --cv-card-gap: 0.3rem;
     }
 
-    .cv-timeline {
-        gap: 0.3rem;
+    .cv-cards-stack,
+    .cv-timeline,
+    .cv-oss-grid,
+    .cv-cards-grid {
+        gap: var(--cv-card-gap);
     }
 
     .cv-oss-grid>.cv-card {
@@ -233,7 +237,7 @@ body {
     }
 
     .cv-header {
-        padding-bottom: 0.35rem !important;
+        padding-bottom: var(--cv-card-gap) !important;
     }
 
     .sidebar-avatar {
@@ -481,24 +485,24 @@ body {
     min-width: 0;
     min-height: 0;
     height: 100%;
-    display: grid;
-    grid-template-rows: auto auto auto auto;
-    gap: 0.25rem;
-    padding: 0.375rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--cv-card-gap);
+    padding: 0.375rem 1.5rem;
     overflow: hidden;
-}
-
-.cv-section {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
 }
 
 .cv-section-head {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0 0.2rem;
+    flex-shrink: 0;
+}
+
+.cv-header {
+    padding-bottom: var(--cv-card-gap);
+    flex-shrink: 0;
 }
 
 .cv-card-pad {
@@ -517,27 +521,23 @@ body {
     letter-spacing: -0.008em;
 }
 
-.cv-cards-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-}
-
-.cv-exp-block {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+.cv-cards-stack,
+.cv-timeline,
+.cv-oss-grid,
+.cv-cards-grid {
+    gap: var(--cv-card-gap);
 }
 
 .cv-timeline {
-    flex: 1;
-    min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    flex-shrink: 0;
+}
+
+.cv-oss-grid,
+.cv-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .cv-oss-grid>.cv-card {
