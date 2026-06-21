@@ -3,8 +3,8 @@ import { BulletList, CvCard, RichText, SectionHead, TimelineDot } from './ui'
 
 function Header() {
   return (
-    <div class="cv-section cv-header pt-0.5 pb-1.5 border-b-2 border-indigo-100 relative z-10">
-      <h1 class="text-[27px] font-bold tracking-[-0.03em] text-slate-900 leading-none">
+    <div class="cv-header pt-0.5 border-b-2 border-indigo-100 relative z-10">
+      <h1 class="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-none">
         {person.firstName} <span class="name-accent">{person.lastName}</span>
       </h1>
       <p class="cv-subtitle tracking-[0.06em] uppercase mt-1.5 sub-line">
@@ -90,36 +90,17 @@ function OpenSourceSection() {
   return (
     <>
       <SectionHead icon="fa-code-branch" title="Impact Open Source" />
-      <div class="cv-cards-stack">
-        <CvCard>
-          <div class="flex justify-between items-center mb-1">
-            <div class="flex items-center gap-2 cv-title">
-              <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[13px]`}></i>
-              {featured.title}
-            </div>
-            {featured.badge ? (
-              <span class="oss-fork-badge text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
-                <i class={`fa-solid ${featured.badge.icon}`}></i> {featured.badge.text}
-              </span>
-            ) : null}
+      <CvCard>
+        <div class="flex justify-between items-center mb-1">
+          <div class="flex items-center gap-2 cv-title">
+            <i class={`${featured.iconBrand ? 'fa-brands' : 'fa-solid'} ${featured.icon} text-slate-800 text-[14px]`}></i>
+            {featured.title}
           </div>
-          <BulletList items={featured.bullets} />
-        </CvCard>
-
-        <div class="cv-oss-grid grid grid-cols-2 gap-1.5">
-          {grid.map((project) => (
-            <CvCard>
-              <div class="flex items-center gap-2 mb-1 cv-title">
-                <i
-                  class={`${project.iconBrand ? 'fa-brands' : 'fa-solid'} ${project.icon} ${project.iconClass ?? ''} text-[13px]`}
-                ></i>
-                {project.title}
-              </div>
-              <BulletList items={project.bullets} />
-            </CvCard>
-          ))}
-        </div>
-      </div>
+          {featured.badge ? (
+            <span class="oss-fork-badge text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <i class={`fa-solid ${featured.badge.icon}`}></i> {featured.badge.text}
+            </span>
+          ) : null}
         </div>
         <BulletList items={featured.bullets} />
       </CvCard>
