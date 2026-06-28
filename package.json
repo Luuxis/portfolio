@@ -7,11 +7,11 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "@cloudflare/puppeteer": "^1.0.4",
-    "hono": "^4.12.26"
+    "@cloudflare/puppeteer": "^1.1.0",
+    "hono": "^4.12.27"
   },
   "devDependencies": {
     "typescript": "^6.0.3",
-    "wrangler": "^4.4.0"
+    "wrangler": "^4.105.0"
   }
 }

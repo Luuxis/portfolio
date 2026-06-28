@@ -64,10 +64,10 @@ export function SectionHead({
 
 export function SidebarBlockTitle({ icon, title, srOnly }: { icon: string; title: string; srOnly?: string }) {
   return (
-    <div class="flex items-center gap-1.5 cv-label mb-2">
+    <h2 class="flex items-center gap-1.5 cv-label mb-2">
       <i class={`fa-solid ${icon} text-[8px]`}></i> {title}
       {srOnly ? <span class="sr-only">{srOnly}</span> : null}
-    </div>
+    </h2>
   )
 }
 

@@ -71,11 +71,13 @@ export const person = {
   websiteLabel: 'luuxis.fr',
   github: 'https://github.com/luuxis',
   githubLabel: 'github.com/luuxis',
+  linkedin: 'https://www.linkedin.com/in/luuxis',
+  linkedinLabel: 'linkedin.com/in/luuxis',
   location: { city: 'Lille', country: 'France' },
 }
 
 export const profileText =
-  "Développeur full-stack et ingénieur logiciel avec **4 ans d'expérience** sur des applications web et SaaS en production. Habitué à enchaîner architecture, développement back-end / front-end et déploiement DevOps, avec un socle **TypeScript**, **JavaScript**, **React**, **Node.js**, **Ruby on Rails** et **PostgreSQL**, complété par **Cloudflare Workers**, **Docker** et **CI/CD**. Lead Developer chez **LuuxCraft**, plateforme SaaS utilisée par plus de **150 000 utilisateurs**. Chez **Farahon**, développement **Rails 8** jusqu'à **20 000 requêtes par jour**, tests automatisés et optimisation des performances de **30 %**."
+  "**Développeur Full-Stack senior** avec **4 ans d'expérience** à concevoir et opérer des plateformes web et SaaS en production avec **TypeScript**, **React**, **Node.js**, **Ruby on Rails**, **PostgreSQL**, **Docker** et **CI/CD**. Gains mesurables de **performance**, **fiabilité** et **scalabilité** sur des produits servant **+150 000 utilisateurs** et **20 000 requêtes/jour**."
 
 export const contactItems: ContactItem[] = [
   {
@@ -93,51 +95,61 @@ export const contactItems: ContactItem[] = [
     href: person.github,
     itemProp: 'sameAs',
   },
+  {
+    icon: 'fa-linkedin',
+    iconBrand: true,
+    content: person.linkedinLabel,
+    href: person.linkedin,
+    itemProp: 'sameAs',
+  },
 ]
 
 export const skillGroups: SkillGroup[] = [
   {
-    icon: 'fa-server',
-    label: 'Backend',
-    tags: [
-      { name: 'Hono', accent: true },
-      { name: 'Node.js', accent: true },
-      { name: 'Ruby on Rails', accent: true },
-      { name: 'Symfony' },
-      { name: 'PHP' },
-      { name: 'Stripe' },
-      { name: 'API REST' },
-    ],
-  },
-  {
     icon: 'fa-laptop-code',
-    label: 'Frontend',
+    label: 'Front-end',
     tags: [
       { name: 'React', accent: true },
       { name: 'TypeScript', accent: true },
+      { name: 'JavaScript', accent: true },
       { name: 'Tailwind' },
+      { name: 'Hotwire' },
       { name: 'Electron.js' },
     ],
   },
   {
-    icon: 'fa-gear',
-    label: 'DevOps',
+    icon: 'fa-server',
+    label: 'Back-end',
     tags: [
-      { name: 'Cloudflare', accent: true },
-      { name: 'Docker', accent: true },
-      { name: 'Git' },
-      { name: 'CI/CD' },
-      { name: 'GitHub Actions' },
-      { name: 'Linux' },
+      { name: 'Ruby on Rails', accent: true },
+      { name: 'Node.js', accent: true },
+      { name: 'Hono', accent: true },
+      { name: 'Symfony' },
+      { name: 'PHP' },
+      { name: 'API REST' },
+      { name: 'Stripe' },
     ],
   },
   {
     icon: 'fa-database',
-    label: 'Base de données',
+    label: 'Bases de données',
     tags: [
       { name: 'PostgreSQL', accent: true },
       { name: 'Redis' },
       { name: 'MySQL' },
+    ],
+  },
+  {
+    icon: 'fa-gear',
+    label: 'DevOps & Cloud',
+    tags: [
+      { name: 'Docker', accent: true },
+      { name: 'CI/CD', accent: true },
+      { name: 'GitHub Actions' },
+      { name: 'Cloudflare' },
+      { name: 'AWS S3' },
+      { name: 'Linux' },
+      { name: 'Git' },
     ],
   },
 ]
@@ -170,13 +182,13 @@ export const experiences: Experience[] = [
     orgSchema: 'LuuxCraft',
     company: 'LuuxCraft — plateforme de launchers Minecraft',
     dot: 'active',
-    badge: 'Exp. actuelle',
+    badge: '2025 – aujourd’hui',
     bullets: [
-      '**TypeScript**, **React**, **Hono** — SaaS launchers Minecraft (auth, abonnements, admin)',
-      'Infra **Cloudflare Workers**, **D1**, **R2** — distribution **~10 Go/j**',
-      'Apps bureau **Electron** — builds auto **Win/Mac/Linux**',
-      'Paiements **Stripe**, **API REST** — facturation récurrente, thèmes personnalisables',
-      'Prod **+150k joueurs** — **CI/CD**, **Docker**, monitoring',
+      "**Pilote** la plateforme back-end d'un SaaS de launchers Minecraft pour **+150 000 joueurs** — auth, abonnements et back-office (**TypeScript**, **React**, **Hono**)",
+      '**Conçois** la distribution de contenu sur **Cloudflare Workers**, **D1** et **R2** — **~10 Go/jour** servis de manière fiable',
+      '**Automatise** les builds des apps bureau **Electron** (**Win/Mac/Linux**) — releases reproductibles, exploitation simplifiée',
+      '**Intègre** les paiements **Stripe** via **API REST** — facturation récurrente et thèmes personnalisables en self-service',
+      '**Fiabilise** la production — **CI/CD**, **Docker** et supervision pour des déploiements continus',
     ],
   },
   {
@@ -186,18 +198,13 @@ export const experiences: Experience[] = [
     orgSchema: 'Farahon',
     company: 'Farahon / LastWill — préparation de fin de vie',
     dot: 'past',
-    date: {
-      start: 'Oct. 2024',
-      end: 'Fév. 2026',
-      startDatetime: '2024-10',
-      endDatetime: '2026-02',
-    },
+    badge: 'oct. 2024 – fév. 2026',
     bullets: [
-      '**Rails 8**, **PostgreSQL**, **Redis** — LastWill (coffre-fort, NFC, assurance obsèques)',
-      'Portail EPF — devis, contrats, SMS (**Hotwire**, **Stimulus**)',
-      '**Stancer**, **Stripe**, **Brevo**, **AWS S3**',
-      '**OTP/2FA**, tests **≥85%** — **20k visites/j**',
-      '**Docker**, **Kamal**, **GitHub Actions** — perf **−30%**, **Sentry −70%**',
+      '**Développe** le coffre-fort numérique **LastWill** (NFC, assurance obsèques) — **Rails 8**, **PostgreSQL**, **Redis**',
+      '**Livre** le portail EPF — parcours devis, contrats et SMS (**Hotwire**, **Stimulus**)',
+      '**Intègre** paiements et services tiers — **Stancer**, **Stripe**, **Brevo**, **AWS S3**',
+      "**Sécurise** l'application — **OTP/2FA** et **≥85%** de couverture de tests",
+      "**Optimise** la production à **20 000 visites/jour** — **−30%** de latence, **−70%** d'erreurs **Sentry** (**Docker**, **Kamal**, **GitHub Actions**)",
     ],
   },
   {
@@ -207,18 +214,13 @@ export const experiences: Experience[] = [
     orgSchema: '',
     company: 'Indépendant — MPDH & clients divers',
     dot: 'old',
-    date: {
-      start: '2020',
-      end: '2023',
-      startDatetime: '2020-01',
-      endDatetime: '2023-12',
-    },
+    badge: 'oct. 2020 – nov. 2023',
     bullets: [
-      '**Symfony 8**, **PostgreSQL**, **Tailwind** — site MPDH (articles, dons)',
-      'CMS **EasyAdmin** — gestion articles, pages et médias',
-      'Modération commentaires, stats — **Google Analytics**',
-      'SEO — sitemap, métadonnées, **JSON-LD**',
-      '**+30 projets** — sites, **API REST**, **Docker**',
+      '**Livre** plus de **30 projets** clients — sites, **API REST** et déploiements **Docker**',
+      '**Standardise** une stack réutilisable — **Symfony 8**, **PostgreSQL**, **Tailwind**',
+      '**Développe** le site **MPDH** — articles et dons en production',
+      '**Outille** un **CMS EasyAdmin** réutilisable — pages, médias, modération des commentaires',
+      '**Améliore** la visibilité — **SEO** (sitemap, métadonnées, **JSON-LD**) et suivi **Google Analytics**',
     ],
   },
 ]
@@ -230,8 +232,8 @@ export const ossProjects: OssProject[] = [
     title: 'Selvania & Uzurion',
     badge: { icon: 'fa-code-fork', text: '+1700 forks' },
     bullets: [
-      'Launcher modulaire (**Electron.js / React**) — **+150 000 utilisateurs**',
-      "Architecture plugin extensible, **CI/CD** et mises à jour automatiques à l'échelle",
+      "**Créateur & mainteneur** d'un launcher modulaire **Electron.js / React** — **+150 000 utilisateurs**",
+      'Architecture à plugins, **CI/CD** et auto-update — base **forkée +1700 fois**',
     ],
   },
   {
@@ -240,10 +242,7 @@ export const ossProjects: OssProject[] = [
     iconClass: 'text-green-500',
     title: 'Android AOSP & ROMs',
     grid: true,
-    bullets: [
-      'Compilation & optimisation de ROMs sur plusieurs appareils',
-      "Contribution à l'écosystème **Android AOSP**",
-    ],
+    bullets: ['**Contributeur AOSP** — compilation & optimisation de ROMs multi-appareils'],
   },
   {
     icon: 'fa-npm',
@@ -251,22 +250,14 @@ export const ossProjects: OssProject[] = [
     iconClass: 'text-red-500',
     title: 'Librairies NPM',
     grid: true,
-    bullets: ['Maintenance de paquets — **+1000 téléchargements / mois**'],
+    bullets: ['**Mainteneur** de paquets **npm** — **+1000 téléchargements/mois**'],
   },
 ]
 
 export const education: Education[] = [
-  { title: 'Bachelor Dév. Web', badge: 'Bac+3', school: 'Epitech Lille', period: '2026 – 2027' },
+  { title: 'Bachelor Dév. Web', badge: 'Bac+3', school: 'Epitech Lille', period: '2026 – en cours' },
   { title: 'Web@cadémie', badge: 'Bac+2', school: 'Epitech Lille', period: '2023 – 2025' },
 ]
-
-export const atsParseText = `André Gallo. Lille, France. contact@luuxis.fr. luuxis.fr. github.com/luuxis.
-Développeur Full-Stack. Lead Developer. Software Engineer. Ingénieur logiciel. Web Developer. DevOps Engineer. Backend Developer. Frontend Developer.
-TypeScript. JavaScript. React. Node.js. Hono. Ruby on Rails. Rails 8. Symfony. PHP. PostgreSQL. Redis. MySQL. Docker. CI/CD. Git. GitHub Actions. Kamal. Linux.
-Cloudflare. Cloudflare Workers. D1. R2. AWS S3. Stripe. Stancer. Brevo. API REST. SaaS. Electron. Hotwire. Stimulus. Tailwind CSS. EasyAdmin. Sentry.
-Tests automatisés. TDD. Architecture logicielle. Microservices. Serverless. Intégration continue. Déploiement continu. Monitoring. Performance. Sécurité. OTP. 2FA.
-LuuxCraft. Farahon. LastWill. MPDH. Epitech Lille. Bachelor Développement Web. Web@cadémie. Open Source. Selvania. Android AOSP. NPM.
-Work Experience. Professional Experience. Skills. Education. Summary. Profile. Full-Stack. Back-End. Front-End. PostgreSQL. CMS. SEO. Google Analytics.`
 
 export const schemaLdJson = {
   '@context': 'https://schema.org',
@@ -275,7 +266,7 @@ export const schemaLdJson = {
   jobTitle: ['Développeur Full-Stack', 'Lead Developer', 'Software Engineer', 'DevOps'],
   email: person.email,
   url: person.website,
-  sameAs: [person.github],
+  sameAs: [person.github, person.linkedin],
   address: {
     '@type': 'PostalAddress',
     addressLocality: person.location.city,

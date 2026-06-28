@@ -1,4 +1,4 @@
-import { atsParseText, person, schemaLdJson } from '../../models/cv'
+import { person, schemaLdJson } from '../../models/cv'
 import { cvStyles } from './styles'
 import { MainContent } from './components/MainContent'
 import { Sidebar } from './components/Sidebar'
@@ -65,9 +65,6 @@ export function CvPage() {
           <meta itemprop="jobTitle" content="Développeur Full-Stack" />
           <Sidebar />
           <MainContent />
-          <p class="ats-parse" aria-hidden="true">
-            {atsParseText}
-          </p>
         </main>
       </body>
     </html>

@@ -215,7 +215,7 @@ body {
     }
 
     .cv-card-pad {
-        padding: 0.5rem;
+        padding: 0.4rem 0.5rem;
     }
 
     .cv-bullets {
@@ -223,7 +223,7 @@ body {
     }
 
     :root {
-        --cv-card-gap: 0.3rem;
+        --cv-card-gap: 0.25rem;
     }
 
     .cv-cards-stack,
@@ -513,7 +513,7 @@ body {
 }
 
 .cv-card-pad {
-    padding: 0.625rem;
+    padding: 0.5rem 0.625rem;
 }
 
 .cv-bullets {
@@ -581,32 +581,6 @@ body {
     opacity: .4;
     font-size: 140px;
     line-height: 1;
-}
-
-/* Texte extractible par ATS / IA (PDF + HTML), quasi invisible à l'écran */
-.ats-parse {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 3px;
-    overflow: hidden;
-    opacity: 0.02;
-    font-size: 1px;
-    line-height: 1px;
-    color: #f8fafc;
-    pointer-events: none;
-    z-index: 0;
-    margin: 0;
-    padding: 0;
-}
-
-@media print {
-    .ats-parse {
-        opacity: 0.02;
-        font-size: 1pt;
-        color: #ffffff;
-    }
 }
 
 .sr-only {
