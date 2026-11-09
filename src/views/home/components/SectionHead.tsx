@@ -1,19 +1,21 @@
 export function SectionHead({
-  num,
+  id,
+  label,
   title,
-  description,
+  text,
 }: {
-  num: string
+  id: string
+  label: string
   title: string
-  description: string
+  text: string
 }) {
   return (
-    <div class="section-head anim">
-      <span class="section-num">{num}</span>
-      <div>
-        <h2>{title}</h2>
-        <p>{description}</p>
-      </div>
+    <div class="section-head">
+      <p class="lbl">{label}</p>
+      <h2 id={id} class="disp">
+        {title}
+      </h2>
+      <p>{text}</p>
     </div>
   )
 }

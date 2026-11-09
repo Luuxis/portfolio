@@ -1,35 +1,36 @@
-import { person } from '../../models/cv'
+import { person } from '../../models/profile'
+import { themeBootScript } from '../shared/theme'
 import { cvLoadingScript, cvLoadingStyles } from './loading'
+
+const cells = '<i></i>'.repeat(12)
 
 export function renderCvLoadingPage(): string {
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Génération du CV — ${person.fullName}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Génération du CV, ${person.fullName}</title>
   <meta name="robots" content="noindex">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>${themeBootScript}</script>
   <style>${cvLoadingStyles}</style>
 </head>
 <body>
-  <div class="panel">
-    <div class="icon" aria-hidden="true"></div>
-    <h1>Génération du CV</h1>
-    <p class="status" id="status">Initialisation…</p>
-    <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-      <div class="bar" id="bar"></div>
+  <main class="panel">
+    <div class="panel-bar" aria-hidden="true"><span>andre-gallo-cv.pdf</span><i></i></div>
+    <div class="panel-body">
+      <h1>Je prépare le PDF</h1>
+      <p class="status" id="status" aria-live="polite">Démarrage…</p>
+      <div class="track" role="progressbar" aria-label="Avancement" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">${cells}</div>
+      <p class="percent" id="percent">0 %</p>
+      <p class="hint">Le CV passe par un vrai navigateur côté serveur, ça prend entre 5 et 15 secondes. Les fois suivantes, il sort du cache.</p>
+      <div class="error" id="error" role="alert">
+        Le PDF n'a pas pu être généré, le service de rendu est peut-être indisponible.
+        <div class="links"><a href="/cv">Voir le CV en ligne</a><a href="/">Retour au site</a></div>
+      </div>
     </div>
-    <p class="percent" id="percent">0%</p>
-    <p class="hint">Le rendu passe par un navigateur headless — compte 5 à 15 secondes.</p>
-    <div class="error" id="error">
-      Impossible de générer le PDF. Le service Browser Rendering est peut-être indisponible.
-      <br>
-      <a class="back" href="/">← Retour au portfolio</a>
-    </div>
-  </div>
+  </main>
   <script>${cvLoadingScript}</script>
 </body>
 </html>`

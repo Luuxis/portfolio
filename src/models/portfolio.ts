@@ -1,213 +1,202 @@
-import { person, skillGroups } from './cv'
+import { typo } from './typo'
+import type { IconName } from '../views/shared/icons'
 
-export type TimelineEvent = {
-  period: string
-  title: string
-  org?: string
-  description: string
-  tags?: string[]
-  href?: string
-  kind: 'work' | 'oss' | 'edu' | 'milestone'
-}
+export type Fact = { label: string; value: string }
+
+export type NowItem = { icon: IconName; text: string }
+
+export type LuuxCraftPart = { icon: IconName; name: string; text: string; stack: string }
 
 export type Project = {
+  icon: IconName
   name: string
-  role: string
-  description: string
-  metrics?: string[]
-  stack: string[]
+  meta: string
+  text: string
+  tags: string[]
+  stat?: string
   href?: string
-  status: 'prod' | 'oss' | 'client'
+  linkLabel?: string
 }
 
-export type Metric = {
-  value: string
-  label: string
-  detail?: string
+export type Step = {
+  period: string
+  title: string
+  org: string
+  text: string
+  current?: boolean
 }
 
-export const intro = {
-  handle: 'Luuxis',
-  role: 'Développeur full-stack & DevOps',
-  location: 'Lille, France',
-    pitch:
-      "Je conçois et déploie des produits web et desktop en production — du launcher open source utilisé par des centaines de milliers de joueurs au SaaS LuuxCraft qui distribue des gigaoctets chaque jour. Full-stack et DevOps : une seule personne de l'architecture au monitoring.",
-  availability: 'Ouvert aux missions full-stack, SaaS et outils techniques.',
-}
+export type ToolGroup = { icon: IconName; title: string; items: string[] }
 
-export const metrics: Metric[] = [
-  { value: '150k+', label: 'joueurs touchés', detail: 'écosystème launchers' },
-  { value: '1,7k', label: 'forks OSS', detail: 'Selvania & dérivés' },
-  { value: '219', label: 'étoiles GitHub', detail: 'Selvania-Launcher' },
-  { value: '20k', label: 'req / jour', detail: 'Rails @ Farahon' },
-  { value: '4 ans', label: 'en production', detail: 'web & desktop' },
-  { value: '23', label: 'repos publics', detail: 'GitHub depuis 2020' },
-]
+export const hero = typo({
+  label: 'Développeur full-stack à Lille',
+  lead: "J'écris des applis web et desktop, et je m'occupe aussi des serveurs qui les font tourner. Ça a commencé avec des launchers Minecraft en 2020, c'est devenu un métier.",
+})
 
-export const timeline: TimelineEvent[] = [
+export const facts: Fact[] = typo([
+  { label: 'Premier commit public', value: '2020' },
+  { label: 'Forks de Selvania', value: '1 700+' },
+  { label: 'Joueurs sur mes launchers', value: '150 000+' },
+])
+
+export const now: NowItem[] = typo([
+  { icon: 'location_on', text: 'Lille, France' },
+  { icon: 'work', text: 'Alternance chez FLEAP' },
+  { icon: 'rocket_launch', text: 'Fondateur de LuuxCraft' },
+  { icon: 'school', text: 'Bachelor à Epitech Lille' },
+])
+
+export const availability = typo('Ouvert aux missions freelance')
+
+export const luuxcraft = typo({
+  since: 'Mon entreprise, depuis 2025',
+  title: 'LuuxCraft',
+  text: "Un serveur Minecraft crée son launcher sur le panel : nom, logo, versions, mods, thème, actualités. Ses joueurs téléchargent un installeur à son nom pour Windows, macOS ou Linux. Côté code, rien n'est recompilé par client : il n'y a qu'un moteur, et l'identité arrive dans un pack généré à la volée.",
+  image: '/images/luuxcraft-panel.png',
+  imageAlt: 'Visuel de LuuxCraft : « Le launcher Minecraft de votre serveur, à vos couleurs. »',
+  href: 'https://luuxcraft.fr',
+  docs: 'https://luuxcraft.app/docs',
+  parts: [
+    {
+      icon: 'dashboard',
+      name: 'Le panel',
+      text: 'Instances, éditeur de thème, actualités, abonnements.',
+      stack: 'TypeScript, Hono, Workers, D1, R2',
+    },
+    {
+      icon: 'rocket_launch',
+      name: 'Le launcher',
+      text: 'Un seul binaire pour tous les serveurs, ARM64 compris.',
+      stack: 'Rust, Tauri 2, React',
+    },
+    {
+      icon: 'dns',
+      name: "L'agent serveur",
+      text: 'Un cgroup v2 et un utilisateur par serveur Minecraft.',
+      stack: 'Rust, Linux, WebSocket',
+    },
+  ] satisfies LuuxCraftPart[],
+})
+
+export const projects: Project[] = typo([
   {
-    period: '2026 →',
-    title: 'Bachelor Développement Web',
+    icon: 'sports_esports',
+    name: 'Selvania Launcher',
+    meta: 'Open source, 2021',
+    text: 'Mon premier gros projet public : un launcher Minecraft en Electron que beaucoup de serveurs moddés ont repris à leur compte.',
+    tags: ['Electron', 'Node.js'],
+    stat: '219 étoiles · 1 700+ forks',
+    href: 'https://github.com/luuxis/Selvania-Launcher',
+    linkLabel: 'GitHub',
+  },
+  {
+    icon: 'package_2',
+    name: 'minecraft-java-core',
+    meta: 'Open source, npm',
+    text: 'La bibliothèque qui télécharge, installe et lance Minecraft, vanilla ou avec Forge, NeoForge, Fabric et Quilt.',
+    tags: ['TypeScript', 'Node.js'],
+    href: 'https://github.com/luuxis/minecraft-java-core',
+    linkLabel: 'GitHub',
+  },
+  {
+    icon: 'deployed_code',
+    name: 'crust_core',
+    meta: 'Open source, crates.io',
+    text: "minecraft-java-core réécrit en Rust, avec les mêmes loaders et les comptes Microsoft. C'est lui qui tourne dans le launcher LuuxCraft.",
+    tags: ['Rust', 'Tokio'],
+    href: 'https://crates.io/crates/crust_core',
+    linkLabel: 'crates.io',
+  },
+  {
+    icon: 'android',
+    name: 'Evolution X, Edge 40 Pro',
+    meta: 'Android',
+    text: "Un build officiel d'Evolution X pour le Motorola Edge 40 Pro, version d'Android modifiée par la communauté permettant de bénéficier de fonctionnalités avancées et d'un support optimal.",
+    tags: ['AOSP', 'Linux', 'Caddy'],
+  },
+  {
+    icon: 'school',
+    name: 'CORELAB',
+    meta: 'Epitech, à trois',
+    text: 'Une plateforme de cours en ligne : des leçons, un QCM par leçon qui débloque la suivante, et le suivi des notes pour les admins.',
+    tags: ['Hono', 'Workers', 'D1', 'Drizzle'],
+  },
+  {
+    icon: 'shield_lock',
+    name: 'LastWill',
+    meta: 'Chez Farahon, 2024 – 2026',
+    text: 'Un coffre-fort numérique avec cartes NFC et assurance obsèques. Rails 8 en production, autour de 20 000 visites par jour.',
+    tags: ['Rails 8', 'PostgreSQL', 'Kamal'],
+  },
+])
+
+export const steps: Step[] = typo([
+  {
+    period: 'Depuis sept. 2026',
+    title: 'Développeur full-stack en alternance',
+    org: 'FLEAP',
+    text: "Je construis le tri automatique des documents que les clients déposent, factures et bons de pesée : l'IA classe, une seconde passe vérifie, un admin tranche en cas de doute.",
+    current: true,
+  },
+  {
+    period: 'Depuis 2026',
+    title: 'Bachelor développement web',
     org: 'Epitech Lille',
-    description: 'Poursuite du cursus en parallèle du lead technique chez LuuxCraft.',
-    kind: 'edu',
+    text: "En alternance, après la Web@cadémie. C'est là qu'on a monté CORELAB à trois.",
+    current: true,
   },
   {
-    period: '2025 →',
-    title: 'Lead Developer',
+    period: 'Depuis 2025',
+    title: 'Fondateur',
     org: 'LuuxCraft',
-    description:
-      'Conception du panel SaaS : auth Microsoft/AzAuth, abonnements Stripe, builds Electron multi-plateforme via GitHub Actions, infra Cloudflare Workers + R2 (~10 Go/j de distribution).',
-    tags: ['TypeScript', 'React', 'Hono', 'Cloudflare', 'Stripe', 'Electron'],
-    href: 'https://luuxcraft.fr',
-    kind: 'work',
+    text: "Le panel, le launcher, l'agent serveur, les mails, la facturation : tout passe par moi.",
+    current: true,
   },
   {
-    period: 'oct. 2024 – fév. 2026',
-    title: 'Développeur Full-Stack',
-    org: 'Farahon / LastWill',
-    description:
-      'Rails 8 sur LastWill (coffre-fort numérique, NFC, assurance obsèques). Portail EPF, paiements Stancer/Stripe, OTP/2FA. Perf −30 %, Sentry −70 %, couverture tests ≥ 85 %.',
-    tags: ['Rails 8', 'PostgreSQL', 'Hotwire', 'Kamal', 'Docker'],
-    kind: 'work',
-  },
-  {
-    period: '2024',
-    title: 'Selvania référencé',
-    org: '9Minecraft, communauté moddée',
-    description:
-      'Le launcher devient une référence pour les serveurs moddés francophones. Support Forge, Fabric, NeoForge, Quilt — Java auto, auth Microsoft.',
-    tags: ['Electron', 'Node.js', 'CI/CD'],
-    href: 'https://github.com/Luuxis/Selvania-Launcher',
-    kind: 'oss',
+    period: '2024 – 2026',
+    title: 'Développeur full-stack',
+    org: 'Farahon',
+    text: 'LastWill en Rails 8 : coffre-fort, portail EPF, paiements, double authentification. Temps de réponse en baisse de 30 %, erreurs Sentry de 70 %.',
   },
   {
     period: '2023 – 2025',
     title: 'Web@cadémie',
     org: 'Epitech Lille',
-    description: 'Formation intensive dev web : projets, autonomie, culture technique.',
-    kind: 'edu',
+    text: 'Deux ans de formation par projets, en autonomie, avant le Bachelor.',
   },
   {
     period: '2020 – 2023',
-    title: 'Freelance & projets clients',
-    org: 'MPDH, associations, PME',
-    description:
-      '+30 livrables : Symfony 8 + EasyAdmin pour MPDH, APIs REST, SEO, analytics. Premiers pas sérieux en architecture et relation client.',
-    tags: ['Symfony', 'PostgreSQL', 'Tailwind', 'Docker'],
-    kind: 'work',
+    title: 'Développeur web freelance',
+    org: 'Indépendant',
+    text: "Une trentaine de sites et d'API pour des associations et des petites boîtes. Le site du Mouvement pour un Développement Humain, fait en Symfony à l'époque, je l'ai réécrit depuis en Hono sur Cloudflare Workers.",
   },
   {
-    period: 'fév. 2021',
-    title: 'Selvania Launcher',
-    org: 'Open source',
-    description:
-      'Création du launcher modulaire Electron/React. 36 releases, builds Win/Mac/Linux, mises à jour auto via GitHub. Base forkée 1 700+ fois.',
-    tags: ['Electron', 'React', 'JavaScript'],
-    href: 'https://github.com/Luuxis/Selvania-Launcher',
-    kind: 'oss',
+    period: '2020',
+    title: 'Premiers commits',
+    org: 'GitHub',
+    text: 'minecraft-java-core, puis Selvania Launcher en 2021. Tout part de là.',
   },
-  {
-    period: 'mars 2020',
-    title: 'Premiers commits publics',
-    org: 'GitHub @ Luuxis',
-    description: 'Début du code open source autour de Minecraft et Node.js — minecraft-java-core, modules launcher.',
-    href: 'https://github.com/Luuxis',
-    kind: 'milestone',
-  },
-]
+])
 
-export const projects: Project[] = [
+export const tools: ToolGroup[] = typo([
   {
-    name: 'LuuxCraft Panel',
-    role: 'Lead dev · SaaS',
-    description:
-      'Panel pour créer, héberger et distribuer un launcher Minecraft custom. Instances multi-loaders, push mods instantané, dédup SHA1, CDN intégré.',
-    metrics: ['150k+ utilisateurs', '~10 Go/j', 'Win · Mac · Linux'],
-    stack: ['TypeScript', 'React', 'Hono', 'Workers', 'R2', 'Stripe'],
-    href: 'https://luuxcraft.fr',
-    status: 'prod',
+    icon: 'terminal',
+    title: 'Langages',
+    items: ['TypeScript', 'JavaScript', 'Rust', 'Ruby', 'PHP', 'SQL'],
   },
   {
-    name: 'Selvania Launcher',
-    role: 'Créateur · OSS',
-    description:
-      'Launcher moddé open source. Auth Microsoft, install Java auto, news feed, statut serveur live. Le repo le plus forké de mon GitHub.',
-    metrics: ['219 ★', '1 710 forks', '36 releases'],
-    stack: ['Electron', 'Node.js', 'React', 'GitHub Actions'],
-    href: 'https://github.com/Luuxis/Selvania-Launcher',
-    status: 'oss',
+    icon: 'web',
+    title: 'Web',
+    items: ['React', 'Hono', 'Node.js', 'Ruby on Rails', 'Symfony', 'Tailwind', 'Hotwire'],
   },
   {
-    name: 'LastWill',
-    role: 'Full-stack · Farahon',
-    description:
-      'Plateforme de préparation de fin de vie : coffre-fort, parcours assurance obsèques, intégrations NFC. Stack Rails 8 en prod à 20k visites/j.',
-    metrics: ['20k visites/j', 'tests ≥ 85 %', 'perf −30 %'],
-    stack: ['Rails 8', 'PostgreSQL', 'Redis', 'Stimulus', 'Kamal'],
-    status: 'prod',
+    icon: 'desktop_windows',
+    title: 'Desktop et mobile',
+    items: ['Tauri 2', 'Electron', 'AOSP'],
   },
   {
-    name: 'MPDH',
-    role: 'Freelance',
-    description: 'Site associatif avec CMS EasyAdmin, dons, modération, SEO et JSON-LD.',
-    metrics: ['CMS complet', 'analytics'],
-    stack: ['Symfony 8', 'PostgreSQL', 'Tailwind', 'EasyAdmin'],
-    status: 'client',
+    icon: 'cloud',
+    title: 'Infra et données',
+    items: ['Cloudflare Workers', 'D1', 'R2', 'KV', 'PostgreSQL', 'Redis', 'Docker', 'Kamal', 'GitHub Actions', 'Linux', 'Caddy', 'Traefik'],
   },
-  {
-    name: 'minecraft-java-core',
-    role: 'OSS · Node',
-    description: 'Lib pour gérer installations Java/Minecraft côté launcher — utilisée dans plusieurs projets communautaires.',
-    metrics: ['29 ★ GitHub'],
-    stack: ['Node.js', 'TypeScript'],
-    href: 'https://github.com/Luuxis/minecraft-java-core',
-    status: 'oss',
-  },
-  {
-    name: 'Paquets NPM',
-    role: 'Maintenance',
-    description: 'Modules utilitaires pour launchers et tooling Electron — téléchargements récurrents chaque mois.',
-    metrics: ['1k+ DL / mois'],
-    stack: ['Node.js', 'TypeScript'],
-    status: 'oss',
-  },
-]
-
-export const capabilities = [
-  {
-    title: 'Produit & architecture',
-    items: [
-      'Du brief au déploiement sans silo',
-      'API REST, auth, paiements récurrents',
-      'Choix stack pragmatiques (monolithe Rails ou Workers edge)',
-    ],
-  },
-  {
-    title: 'Frontend & desktop',
-    items: [
-      'React, Tailwind, interfaces denses mais lisibles',
-      'Electron multi-OS, auto-update, builds CI',
-      'Hotwire/Stimulus sur apps Rails',
-    ],
-  },
-  {
-    title: 'Infra & fiabilité',
-    items: [
-      'Docker, Kamal, GitHub Actions',
-      'Cloudflare Workers, R2, D1',
-      'Monitoring Sentry, optimisation perf mesurée',
-    ],
-  },
-]
-
-export const links = {
-  email: person.email,
-  github: person.github,
-  githubHandle: person.githubLabel,
-  website: person.website,
-  malt: 'https://www.malt.fr/profile/andregallo1',
-  cv: '/cv.pdf',
-}
-
-export { person, skillGroups }
+])

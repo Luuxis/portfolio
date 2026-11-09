@@ -1,71 +1,182 @@
-import { person, schemaLdJson } from '../../models/cv'
-import { cvStyles } from './styles'
-import { MainContent } from './components/MainContent'
-import { Sidebar } from './components/Sidebar'
+import { avatarDataUrl } from '../../models/avatar'
+import {
+  courses,
+  currently,
+  headline,
+  intro,
+  jobs,
+  languages,
+  outside,
+  sideProjects,
+  skills,
+} from '../../models/cv'
+import { person, schemaLdJson } from '../../models/profile'
+import { jsonLd } from '../shared/html'
+import { Icon, type IconName } from '../shared/Icon'
+import { cvFitScript, cvStyles } from './styles'
 
-const tailwindConfig = `
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
-      colors: {
-        indigo: {
-          50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe',
-          300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1',
-          600: '#4f46e5', 700: '#4338ca', 900: '#312e81',
-        }
-      }
-    }
-  }
+const contacts: { icon: IconName; label: string; href?: string }[] = [
+  { icon: 'location_on', label: `${person.city}, ${person.country}` },
+  { icon: 'mail', label: person.email, href: `mailto:${person.email}` },
+  { icon: 'call', label: person.phone, href: person.phoneHref },
+  { icon: 'language', label: person.websiteLabel, href: person.website },
+  { icon: 'code', label: person.githubLabel, href: person.github },
+  { icon: 'groups', label: person.linkedinLabel, href: person.linkedin },
+]
+
+function CvHeader() {
+  return (
+    <header class="cv-head">
+      <div>
+        <h1 class="cv-name">{person.fullName}</h1>
+        <p class="cv-role">
+          <span>{headline}</span>
+        </p>
+        <p class="cv-now">{currently}</p>
+      </div>
+      <img class="cv-photo" src={avatarDataUrl} alt={`Photo d'${person.fullName}`} width="88" height="88" />
+      <ul class="cv-contact">
+        {contacts.map((item) => (
+          <li>
+            <Icon name={item.icon} size={13} />
+            {item.href ? <a href={item.href}>{item.label}</a> : item.label}
+          </li>
+        ))}
+      </ul>
+    </header>
+  )
 }
-`
+
+function Experience() {
+  return (
+    <section>
+      <h2 class="cv-h">Expérience</h2>
+      {jobs.map((job) => (
+        <article class="job">
+          <p class="job-when">
+            {job.period}
+            {job.place ? <span class="job-place">{job.place}</span> : null}
+          </p>
+          <div>
+            <h3>
+              {job.org} <span class="job-role">· {job.role}</span>
+            </h3>
+            {job.context ? <p class="job-ctx">{job.context}</p> : null}
+            <ul class="job-list">
+              {job.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+            <p class="job-stack">
+              <b>Outils&nbsp;:</b> {job.stack}
+            </p>
+          </div>
+        </article>
+      ))}
+    </section>
+  )
+}
+
+function Projects() {
+  return (
+    <section>
+      <h2 class="cv-h">Projets perso</h2>
+      {sideProjects.map((project) => (
+        <article class="proj">
+          <h3>
+            {project.name}{' '}
+            <span class="proj-meta">{project.meta}</span>
+          </h3>
+          <p>{project.text}</p>
+        </article>
+      ))}
+      <h2 class="cv-h">À côté</h2>
+      <p class="outside">{outside}</p>
+    </section>
+  )
+}
+
+function Side() {
+  return (
+    <div>
+      <section>
+        <h2 class="cv-h">Formation</h2>
+        <ul class="edu">
+          {courses.map((course) => (
+            <li>
+              <h3>
+                {course.title}, {course.school}
+              </h3>
+              <p>{course.period}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <h2 class="cv-h">Compétences</h2>
+        <dl class="skills">
+          {skills.map((row) => (
+            <>
+              <dt>{row.label}</dt>
+              <dd>{row.items}</dd>
+            </>
+          ))}
+        </dl>
+      </section>
+      <section>
+        <h2 class="cv-h">Langues</h2>
+        <ul class="langs">
+          {languages.map((lang) => (
+            <li>
+              <b>{lang.name}</b>&nbsp;: <span>{lang.level}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  )
+}
 
 export function CvPage() {
   return (
     <html lang="fr">
       <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>
-          {person.fullName} — {person.title}
-        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>CV d'{person.fullName}, développeur full-stack</title>
         <meta
           name="description"
-          content={`CV ${person.fullName} — Développeur Full-Stack, Lead Developer, Software Engineer. TypeScript, React, Ruby on Rails, Symfony, PostgreSQL, Cloudflare Workers, Docker, CI/CD. SaaS en production, +150k utilisateurs, 20k req/jour. Lille, France.`}
-        />
-        <meta
-          name="keywords"
-          content="Développeur Full-Stack, Lead Developer, Software Engineer, Ingénieur logiciel, TypeScript, JavaScript, React, Node.js, Hono, Ruby on Rails, Rails, Symfony, PHP, PostgreSQL, Redis, Docker, DevOps, CI/CD, Cloudflare Workers, Stripe, API REST, SaaS, Electron, GitHub Actions, Kamal, Sentry, Tailwind, Hotwire, EasyAdmin, AWS S3, Lille"
+          content="CV d'André Gallo : développeur full-stack à Lille, alternant chez FLEAP, fondateur de LuuxCraft. TypeScript, Rust, Ruby on Rails, Cloudflare."
         />
         <meta name="author" content={person.fullName} />
-        <script type="application/ld+json">{JSON.stringify(schemaLdJson)}</script>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        />
-        <script>{tailwindConfig}</script>
-        <style>{cvStyles}</style>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schemaLdJson) }} />
+        <style dangerouslySetInnerHTML={{ __html: cvStyles }} />
       </head>
-      <body class="bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] min-h-screen flex justify-center items-start py-8 px-5 print:p-0 print:m-0 print:bg-white print:block">
-        <main
-          class="cv-wrap w-[210mm] h-[297mm] min-h-[297mm] max-h-[297mm] bg-white rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,.45)] flex overflow-hidden print:rounded-none print:shadow-none"
-          itemscope
-          itemtype="https://schema.org/Person"
-        >
-          <meta itemprop="name" content={person.fullName} />
-          <meta itemprop="email" content={person.email} />
-          <link itemprop="url" href={person.website} />
-          <meta itemprop="jobTitle" content="Développeur Full-Stack" />
-          <Sidebar />
-          <MainContent />
-        </main>
+      <body>
+        <div class="cv-screen">
+          <nav class="toolbar" aria-label="Actions">
+            <a class="btn" href="/">
+              <Icon name="arrow_back" size={18} />
+              Le site
+            </a>
+            <a class="btn btn-primary" href={person.cv}>
+              <Icon name="download" size={18} />
+              Télécharger en PDF
+            </a>
+          </nav>
+          <main class="sheet">
+            <CvHeader />
+            <p class="cv-intro">{intro}</p>
+            <Experience />
+            <div class="cv-cols">
+              <Projects />
+              <Side />
+            </div>
+            <div class="cv-terrain" aria-hidden="true"></div>
+          </main>
+        </div>
+        <script dangerouslySetInnerHTML={{ __html: cvFitScript }} />
       </body>
     </html>
   )
