@@ -126,7 +126,7 @@ export const cvLoadingScript = `
     document.title = 'CV d\\'André Gallo';
   }
 
-  fetch('/cv.pdf/file', { headers: { Accept: 'application/pdf' } })
+  fetch(window.CV_PDF_URL || '/cv.pdf/file', { headers: { Accept: 'application/pdf' } })
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.blob();

@@ -4,7 +4,8 @@ import { cvLoadingScript, cvLoadingStyles } from './loading'
 
 const cells = '<i></i>'.repeat(12)
 
-export function renderCvLoadingPage(): string {
+/** `digest` : empreinte du CV en ligne, pour que le navigateur ne ressorte pas un ancien PDF de son cache. */
+export function renderCvLoadingPage(digest: string): string {
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -31,6 +32,7 @@ export function renderCvLoadingPage(): string {
       </div>
     </div>
   </main>
+  <script>window.CV_PDF_URL='/cv.pdf/file?v=${digest.replace(/[^a-f0-9]/g, '')}'</script>
   <script>${cvLoadingScript}</script>
 </body>
 </html>`

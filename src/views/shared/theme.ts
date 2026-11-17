@@ -26,6 +26,14 @@ const lightTokens = `
   --accent-soft: #CFE6B8;
   --accent-2: #7E5128;
   --focus: #1F59B3;
+  --ok: #1A6231;
+  --ok-soft: #D7EBDB;
+  --warn: #7E4B00;
+  --warn-soft: #F6E7C8;
+  --err: #A8261D;
+  --err-soft: #F6D9D5;
+  --info: #1F59B3;
+  --info-soft: #DCE6F6;
 `
 
 const darkTokens = `
@@ -48,6 +56,14 @@ const darkTokens = `
   --accent-soft: #2E3A22;
   --accent-2: #D19760;
   --focus: #8AB4F8;
+  --ok: #7BD493;
+  --ok-soft: #1F3324;
+  --warn: #E8B04A;
+  --warn-soft: #3A2E14;
+  --err: #FF8A80;
+  --err-soft: #3B201D;
+  --info: #8AB4F8;
+  --info-soft: #1E2A3D;
 `
 
 /**

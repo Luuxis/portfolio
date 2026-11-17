@@ -1,13 +1,47 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "portfolio",
-  "main": "src/index.ts",
-  "compatibility_date": "2026-06-20",
-  "compatibility_flags": ["nodejs_compat"],
-  "assets": {
-    "directory": "./public"
-  },
-  "browser": {
-    "binding": "BROWSER"
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "portfolio",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-06-20",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"directory": "./public"
+	},
+	"browser": {
+		"binding": "BROWSER"
+	},
+	// Clients, devis, factures, mails relevés, versions du CV, réglages de l'admin.
+	// Ajouter "database_id" après `npx wrangler d1 create portfolio` (voir README).
+	"d1_databases": [
+		{
+			"binding": "db",
+			"database_name": "portfolio",
+			"database_id": "30db1802-037d-4561-9f53-e796ab8b8501",
+			"migrations_dir": "./src/db/migrations"
+		}
+	],
+	// PDF des documents émis et mails bruts (.eml).
+	"r2_buckets": [
+		{
+			"bucket_name": "portfolio-files",
+			"binding": "files"
+		}
+	],
+	"triggers": {
+		// Relève IMAP toutes les 5 minutes ; tâches du jour (devis expirés, relances) à 8 h UTC.
+		"crons": [
+			"*/5 * * * *",
+			"0 8 * * *"
+		]
+	},
+	"vars": {
+		"ADMIN_EMAIL": "contact@luuxis.fr"
+	},
+	"observability": {
+		"logs": {
+			"enabled": true
+		}
+	}
 }

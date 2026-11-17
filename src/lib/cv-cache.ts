@@ -1,10 +1,9 @@
-import { renderCv } from '../views/cv/template'
-
 const CACHE_PREFIX = 'https://cv-cache.internal/pdf/'
 const CACHE_CONTROL = 'public, max-age=604800, immutable'
 
-async function cvContentDigest(): Promise<string> {
-  const data = new TextEncoder().encode(renderCv())
+/** Empreinte du HTML du CV : un changement de contenu donne un nouveau PDF. */
+async function cvContentDigest(html: string): Promise<string> {
+  const data = new TextEncoder().encode(html)
   const hash = await crypto.subtle.digest('SHA-256', data)
   const bytes = new Uint8Array(hash)
 
