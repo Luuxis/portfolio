@@ -69,6 +69,8 @@ export const DEFAULT_SETTINGS = {
   'smtp.password': '',
   'smtp.from_email': '',
   'smtp.from_name': '',
+  /** En-tête Reply-To ; vide : l'adresse de la boîte IMAP (utile quand on envoie depuis un noreply). */
+  'smtp.reply_to': '',
 
   'imap.enabled': 'false',
   'imap.host': '',

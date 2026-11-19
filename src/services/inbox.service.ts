@@ -2,6 +2,7 @@ import { and, desc, eq, gt, inArray, isNotNull, sql } from 'drizzle-orm'
 import PostalMime, { type Address, type Email as ParsedEmail } from 'postal-mime'
 import type { Db } from '../db'
 import { clients, mails, type Mail, type MailAddress, type MailAttachmentMeta } from '../db/schema'
+import { parseJson } from '../lib/billing/identity'
 import { connectImap, formatInternalDate, type FetchedMessage, type ImapClient, type MailboxInfo } from '../lib/imap'
 import { loadImap, type ImapSetup } from './mail-config'
 import type { SettingsService } from './settings.service'
@@ -251,6 +252,7 @@ export class InboxService {
       const from = flatten(email.from)[0]
       const to = flatten(email.to)
       const cc = flatten(email.cc)
+      const replyTo = flatten(email.replyTo)
       const text = (email.text?.trim() || (email.html ? htmlToText(email.html) : '')).slice(0, TEXT_LIMIT)
       const attachments: MailAttachmentMeta[] = email.attachments
         .filter((file) => !(file.related || (file.disposition === 'inline' && file.contentId && file.mimeType.startsWith('image/'))))
@@ -259,7 +261,9 @@ export class InboxService {
           mimeType: file.mimeType,
           size: typeof file.content === 'string' ? file.content.length : file.content.byteLength,
         }))
-      const counterpart = direction === 'in' ? from?.address : to[0]?.address
+      // Reçu : l'expéditeur, ou l'adresse où il veut qu'on lui réponde.
+      const counterparts = direction === 'in' ? [from?.address, ...replyTo.map((item) => item.address)] : [to[0]?.address]
+      const clientId = counterparts.map((address) => (address ? known.get(address.toLowerCase()) : undefined)).find(Boolean) ?? null
       const date = email.date && !Number.isNaN(Date.parse(email.date)) ? new Date(email.date) : (message.internalDate ?? new Date())
 
       statements.push(
@@ -278,6 +282,7 @@ export class InboxService {
             fromName: from?.name ?? null,
             toAddresses: JSON.stringify(to),
             ccAddresses: JSON.stringify(cc),
+            replyTo: JSON.stringify(replyTo),
             subject: email.subject ?? null,
             snippet: snippet(text),
             textBody: text,
@@ -288,7 +293,7 @@ export class InboxService {
             partial: !message.raw,
             date,
             seen: direction === 'out' || message.flags.includes('\\Seen'),
-            clientId: counterpart ? (known.get(counterpart.toLowerCase()) ?? null) : null,
+            clientId,
             status: direction === 'in' ? 'received' : 'sent',
             createdAt: new Date(),
           })
@@ -309,6 +314,20 @@ export class InboxService {
     const object = await this.files.get(mail.rawKey)
     if (!object) return null
     return PostalMime.parse(await object.arrayBuffer())
+  }
+
+  /**
+   * L'en-tête Reply-To d'un mail. Ceux copiés avant qu'on le garde en base
+   * (colonne vide) sont relus depuis R2, une fois, puis complétés.
+   */
+  async replyTo(mail: Mail): Promise<MailAddress[]> {
+    if (mail.replyTo != null) return parseJson<MailAddress[]>(mail.replyTo) ?? []
+    if (!mail.rawKey) return []
+    const parsed = await this.parsed(mail).catch(() => null)
+    if (!parsed) return []
+    const replyTo = flatten(parsed.replyTo)
+    await this.db.update(mails).set({ replyTo: JSON.stringify(replyTo) }).where(eq(mails.id, mail.id))
+    return replyTo
   }
 
   /**

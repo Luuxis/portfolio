@@ -176,6 +176,8 @@ export const mails = sqliteTable(
     /** JSON MailAddress[] */
     toAddresses: text('to_addresses').notNull().default('[]'),
     ccAddresses: text('cc_addresses').notNull().default('[]'),
+    /** JSON MailAddress[] : l'en-tête Reply-To ; null pour un mail copié avant qu'on le garde. */
+    replyTo: text('reply_to'),
     subject: text('subject'),
     snippet: text('snippet'),
     textBody: text('text_body'),

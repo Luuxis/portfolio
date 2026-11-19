@@ -76,6 +76,7 @@ export class MailService {
 
     const options: EmailOptions = {
       from: smtp.from,
+      reply: smtp.replyTo ? { email: smtp.replyTo, name: smtp.from.name || undefined } : undefined,
       to: mail.to,
       cc: mail.cc?.length ? mail.cc : undefined,
       subject: mail.subject,
@@ -96,6 +97,7 @@ export class MailService {
     }))
     const toAddresses: MailAddress[] = mail.to.map((address) => ({ name: null, address }))
     const ccAddresses: MailAddress[] = (mail.cc ?? []).map((address) => ({ name: null, address }))
+    const replyTo: MailAddress[] = smtp.replyTo ? [{ name: smtp.from.name || null, address: smtp.replyTo }] : []
     const base = {
       id,
       direction: 'out' as const,
@@ -106,6 +108,7 @@ export class MailService {
       fromName: smtp.from.name || null,
       toAddresses: JSON.stringify(toAddresses),
       ccAddresses: JSON.stringify(ccAddresses),
+      replyTo: JSON.stringify(replyTo),
       subject: mail.subject,
       snippet: snippetOf(mail.text),
       textBody: mail.text,
@@ -153,7 +156,7 @@ export class MailService {
     return this.send({
       to: [to],
       subject: 'Test d’envoi depuis l’admin luuxis.fr',
-      text: 'Si tu lis ce message, l’envoi de mails depuis l’admin fonctionne.',
+      text: 'Si tu lis ce message, l’envoi de mails depuis l’admin fonctionne. Réponds-y : ta réponse doit arriver dans la boîte relue par l’admin.',
     })
   }
 

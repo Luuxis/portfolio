@@ -1,4 +1,5 @@
 import type { WorkerMailerOptions } from 'worker-mailer'
+import { isEmail } from '../lib/http/form'
 import type { ImapConfig } from '../lib/imap'
 import { settingBool, settingInt, type SettingsMap, type SettingsService } from './settings.service'
 
@@ -7,6 +8,17 @@ export type Security = 'tls' | 'starttls' | 'none'
 export type SmtpSetup = {
   server: WorkerMailerOptions
   from: { name: string; email: string }
+  /** Où vont les réponses, si ce n'est pas l'adresse d'envoi. */
+  replyTo: string | null
+}
+
+/**
+ * L'adresse qui reçoit les réponses : celle des réglages, sinon celle de la
+ * boîte IMAP. On peut ainsi envoyer depuis un noreply et lire les réponses
+ * dans l'admin.
+ */
+export function replyAddress(s: SettingsMap): string {
+  return s['smtp.reply_to'] || (isEmail(s['imap.user']) ? s['imap.user'] : '')
 }
 
 export type ImapSetup = {
@@ -31,6 +43,8 @@ export async function loadSmtp(settings: SettingsService, map?: SettingsMap): Pr
   ].filter(Boolean)
   if (missing.length) return { error: `Envoi de mails pas configuré (Réglages → Messagerie : ${missing.join(', ')}).` }
   const security = s['smtp.security'] as Security
+  const fromEmail = s['smtp.from_email'] || s['smtp.user']
+  const replyTo = replyAddress(s)
   return {
     server: {
       host: s['smtp.host'],
@@ -43,9 +57,10 @@ export async function loadSmtp(settings: SettingsService, map?: SettingsMap): Pr
       responseTimeoutMs: 20_000,
     },
     from: {
-      email: s['smtp.from_email'] || s['smtp.user'],
+      email: fromEmail,
       name: s['smtp.from_name'] || s['issuer.legal_name'] || '',
     },
+    replyTo: replyTo && replyTo.toLowerCase() !== fromEmail.toLowerCase() ? replyTo : null,
   }
 }
 

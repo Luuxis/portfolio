@@ -200,6 +200,7 @@ export async function show(c: AdminContext) {
   const attachments = parseJson<MailAttachmentMeta[]>(mail.attachments) ?? []
   const to = addresses(mail.toAddresses)
   const cc = addresses(mail.ccAddresses)
+  const replyTo = addresses(mail.replyTo ?? '[]').filter((item) => item.address.toLowerCase() !== mail.fromAddress?.toLowerCase())
   const showHtml = mail.hasHtml && c.req.query('texte') !== '1' && Boolean(mail.rawKey)
   const counterpart = mail.direction === 'in' ? mail.fromAddress : to[0]?.address
 
@@ -232,6 +233,11 @@ export async function show(c: AdminContext) {
               <p>
                 <b>De</b> {mail.fromName ? `${mail.fromName} <${mail.fromAddress}>` : mail.fromAddress}
               </p>
+              {replyTo.length ? (
+                <p>
+                  <b>Réponses à</b> {replyTo.map(formatAddress).join(', ')}
+                </p>
+              ) : null}
               <p>
                 <b>À</b> {to.map(formatAddress).join(', ') || '—'}
               </p>
@@ -533,7 +539,9 @@ export async function composeForm(c: AdminContext) {
   if (replyId) {
     const [mail] = await db.select().from(mails).where(eq(mails.id, replyId)).limit(1)
     if (mail) {
-      values.to = mail.fromAddress ?? ''
+      // Comme un logiciel de messagerie : la réponse part vers le Reply-To s'il y en a un.
+      const replyTo = await inbox(c).replyTo(mail)
+      values.to = replyTo.map((item) => item.address).join(', ') || mail.fromAddress || ''
       values.subject = /^(re|tr|fwd?)\s*:/i.test(mail.subject ?? '') ? (mail.subject ?? '') : `Re : ${mail.subject ?? ''}`
       values.body = quote(mail)
       values.inReplyTo = mail.messageId ?? ''

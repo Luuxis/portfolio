@@ -9,6 +9,7 @@ import { bool, isEmail, str, text, type FormBody } from '../../lib/http/form'
 import { qrToDataUri } from '../../lib/security/qr'
 import { generateTotpSecret, totpUri, verifyTotp } from '../../lib/security/totp'
 import { InboxService } from '../../services/inbox.service'
+import { replyAddress } from '../../services/mail-config'
 import { MailService } from '../../services/mail.service'
 import { settingBool, settingInt, type SettingKey, type SettingsMap } from '../../services/settings.service'
 import type { MailboxInfo } from '../../lib/imap'
@@ -209,8 +210,16 @@ function MailSection({ s, smtpPassword, imapPassword, folders, foldersError }: {
               placeholder={smtpPassword ? '•••••••• (enregistré)' : ''}
               hint="Vide : inchangé. Chiffré en base."
             />
-            <Field label="Adresse d'envoi" name="smtp.from_email" value={s['smtp.from_email']} type="email" placeholder="contact@luuxis.fr" />
+            <Field label="Adresse d'envoi" name="smtp.from_email" value={s['smtp.from_email']} type="email" placeholder="contact@luuxis.fr" hint="Peut être un noreply : les réponses vont à l'adresse de réponse." />
             <Field label="Nom d'envoi" name="smtp.from_name" value={s['smtp.from_name']} placeholder="André Gallo" />
+            <Field
+              label="Adresse de réponse"
+              name="smtp.reply_to"
+              value={s['smtp.reply_to']}
+              type="email"
+              placeholder={isEmail(s['imap.user']) ? s['imap.user'] : 'contact@luuxis.fr'}
+              hint="Où arrivent les réponses (en-tête Reply-To). Vide : l'adresse de la boîte IMAP ci-dessous."
+            />
           </div>
         </Card>
         <Card title="Réception (IMAP)" icon="inbox">
@@ -483,6 +492,7 @@ export async function saveMail(c: AdminContext) {
     'smtp.user',
     'smtp.from_email',
     'smtp.from_name',
+    'smtp.reply_to',
     'imap.host',
     'imap.port',
     'imap.security',
@@ -501,6 +511,7 @@ export async function saveMail(c: AdminContext) {
   if (smtpPassword) next['smtp.password'] = smtpPassword
   if (imapPassword) next['imap.password'] = imapPassword
   if (next['smtp.from_email'] && !isEmail(next['smtp.from_email'])) return redirect(c, '/admin/reglages/messagerie', { type: 'err', message: "Adresse d'envoi invalide." })
+  if (next['smtp.reply_to'] && !isEmail(next['smtp.reply_to'])) return redirect(c, '/admin/reglages/messagerie', { type: 'err', message: 'Adresse de réponse invalide.' })
 
   // Un dossier qui change repart de zéro au prochain passage.
   const before = await settings.many(['imap.host', 'imap.user', 'imap.inbox', 'imap.sent'])
@@ -513,7 +524,8 @@ export async function saveMail(c: AdminContext) {
   const intent = str(form, 'intent')
   if (intent === 'test-smtp') {
     const s = await settings.all()
-    const to = s['issuer.email'] || s['smtp.from_email'] || c.env.ADMIN_EMAIL
+    // Pas vers le noreply : vers une boîte qu'on lit.
+    const to = s['issuer.email'] || replyAddress(s) || s['smtp.from_email'] || c.env.ADMIN_EMAIL
     const result = await new MailService(c.get('db'), settings, c.env.files).test(to)
     return redirect(c, '/admin/reglages/messagerie', result.ok ? { type: 'ok', message: `Mail de test envoyé à ${to}.` } : { type: 'err', message: result.error })
   }
